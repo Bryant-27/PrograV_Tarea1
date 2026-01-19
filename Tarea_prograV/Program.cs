@@ -7,17 +7,16 @@ class Program
 {
     static void Main()
     {
-       Settings settings = new Settings();
-       settings.ruta_carpeta = "C://Sync";
+        Settings settings = new Settings();
+        settings.ruta_carpeta = "C://Prueba";
 
-       Replicador replicador = new Replicador();
-        Sincronizador sincronizador = new Sincronizador(settings, replicador);
+        if (!Directory.Exists(settings.ruta_carpeta))
+        {
+            Console.WriteLine("La carpeta no existe. Creandola...");
+            Directory.CreateDirectory(settings.ruta_carpeta);
+        }
 
-        Carpeta_sincronizcada carpeta = new Carpeta_sincronizcada(settings.ruta_carpeta);
-        carpeta.Iniciar_Monitoreo();
-
-        var archivo = carpeta.Detectar_Cambio();
-        sincronizador.ProcesarArchivo(archivo);
+        Console.WriteLine("Carpeta Configurada correctamente");
 
     }
 }

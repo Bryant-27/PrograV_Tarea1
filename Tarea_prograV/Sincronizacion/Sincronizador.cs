@@ -12,7 +12,7 @@ namespace Tarea_prograV.Sincronizacion
         private Replicador _replicador;
 
         /*Constructor*/
-       public Sincronizador(Settings configuracion, Replicador replicador)
+        public Sincronizador(Settings configuracion, Replicador replicador)
         {
             _configuracion = configuracion;
             _replicador = replicador;

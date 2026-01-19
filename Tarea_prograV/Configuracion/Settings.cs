@@ -11,21 +11,11 @@ namespace Tarea_prograV.Configuracion
         public string ruta_carpeta { get; set; }
         public bool sincronizacion { get; set; }
 
-        /*Metodos*/
-
-        public void Config()
+        public Settings()
         {
-            sincronizacion = true;
-        }
-
-        public void Pausar()
-        {
-            sincronizacion = false;
-        }
-
-        public void Reanudar()
-        {
-            sincronizacion = true;
+            // Valores por defecto
+            ruta_carpeta = "C://DefaultSyncFolder";
+            sincronizacion = true; // true significa que la sincronizacion esta activa
         }
 
     }
