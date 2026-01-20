@@ -20,9 +20,9 @@ namespace Tarea_prograV.Sincronizacion
 
         public void ProcesarArchivo(Archivo archivo)
         {
-            if (_configuracion.sincronizacion)
+            if (!_configuracion.sincronizacion)
             {
-                Console.WriteLine("Sincronizacion pausada.");
+                Console.WriteLine("Sincronizando archivo.");
                 return;
             }
 

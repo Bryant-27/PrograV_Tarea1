@@ -8,6 +8,8 @@ namespace Tarea_prograV.Sincronizacion
         // Representa una carpeta que se va a sincronizar
         // Detecta cambios en la carpeta y notifica al sincronizador
 
+        private FileSystemWatcher _watcher;
+
         public string Ruta { get; private set; }
 
         public Carpeta_sincronizcada(string ruta)
@@ -15,21 +17,64 @@ namespace Tarea_prograV.Sincronizacion
             Ruta = ruta;
         }
 
-        public void Iniciar_Monitoreo()
+        private Archivo Eliminar_archivo(string ruta_archivo)
         {
-            // Aqui iria el codigo para iniciar el monitoreo de la carpeta
-            Console.WriteLine($"Monitoreo iniciado en la carpeta: {Ruta}");
-        }
-
-        public Archivo Detectar_Cambio()
-        {
-            // Aqui iria el codigo para detectar cambios en la carpeta
-            // Por simplicidad, retornamos un archivo de ejemplo
             return new Archivo
             {
-                nombre = "archivo_ejemplo.txt",
-                ruta_completa = System.IO.Path.Combine(Ruta, "archivo_ejemplo.txt"),
-                tamano = 2048
+                nombre = Path.GetFileName(ruta_archivo),
+                ruta_completa = ruta_archivo
+            };
+        }
+
+        public void Iniciar_Monitoreo(Action<Archivo> cambio_archivo)
+        {
+            _watcher = new FileSystemWatcher(Ruta);
+            _watcher.IncludeSubdirectories = false;
+            _watcher.EnableRaisingEvents = true;
+
+            _watcher.Created += (s, e) =>
+            {
+                cambio_archivo(Obtener_Archivo(e.FullPath));
+            };
+
+            _watcher.Changed += (s, e) =>
+            {
+                cambio_archivo(Obtener_Archivo(e.FullPath));
+            };
+
+            _watcher.Renamed += (s, e) =>
+            {
+                cambio_archivo(Obtener_Archivo(e.FullPath));
+            };
+
+            _watcher.Deleted += (s, e) =>
+            {
+                cambio_archivo(Obtener_Archivo(e.FullPath));
+            };
+        }
+
+        public Archivo Obtener_Archivo(string ruta_archivo)
+        {
+            // Aqui iria el codigo para detectar cambios en la carpeta
+            
+            if (!File.Exists(ruta_archivo))
+            {
+                return new Archivo
+                {
+                    nombre = Path.GetFileName(ruta_archivo),
+                    ruta_completa = ruta_archivo,
+                    eliminado = true
+                };
+            }
+
+            FileInfo cambios = new FileInfo(ruta_archivo);
+
+            return new Archivo
+            {
+                nombre = cambios.Name,
+                ruta_completa = cambios.FullName,
+                tamano = cambios.Length,
+                eliminado = false
             };
         }
 

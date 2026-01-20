@@ -10,9 +10,7 @@ namespace Tarea_prograV.Dominio
         public string nombre { get; set; }
         public string ruta_completa { get; set; }
         public long tamano { get; set; }
-
-
-        /*Metodos*/
+        public bool eliminado { get; set; }
 
 
     }
