@@ -20,13 +20,29 @@ namespace Tarea_prograV.Sincronizacion
 
         public void ProcesarArchivo(Archivo archivo)
         {
-            if (_configuracion.sincronizacion)
-            {
-                Console.WriteLine("Sincronizacion pausada.");
+            if (!_configuracion.sincronizacion)
                 return;
-            }
+            
 
             _replicador.EnviarArchivo(archivo);
+        }
+
+        public void Resincronizacion()
+        {
+            var archivos = Directory.GetFiles(_configuracion.ruta_carpeta_origen);
+
+            foreach (var ruta in archivos)
+            {
+                var archivo = new Archivo
+                {
+                    nombre = Path.GetFileName(ruta),
+                    ruta_completa = ruta,
+                    eliminado = false,
+                };
+
+                _replicador.EnviarArchivo(archivo);
+
+            }
         }
 
     }
