@@ -26,14 +26,14 @@ class Program
 
         try
         {
-            // Sincronizar archivos existentes
+            // Sincroniza los archivos existentes
             foreach (string rutaArchivo in Directory.GetFiles(settings.ruta_carpeta_origen))
             {
                 Archivo archivo = CS.Obtener_Archivo(rutaArchivo);
                 sincronizador.ProcesarArchivo(archivo);
             }
 
-            // Inica el monitoreo
+            // Inica el monitoreo desde la carpeta sincronizada
             CS.Iniciar_Monitoreo(archivo =>
             {
                 Console.WriteLine($"Cambio detectado: {archivo.nombre}");
