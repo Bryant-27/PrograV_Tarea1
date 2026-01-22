@@ -130,7 +130,7 @@
             lstLog.ItemHeight = 15;
             lstLog.Location = new Point(408, 23);
             lstLog.Name = "lstLog";
-            lstLog.Size = new Size(358, 289);
+            lstLog.Size = new Size(543, 289);
             lstLog.TabIndex = 9;
             // 
             // btnSalir
@@ -157,7 +157,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 340);
+            ClientSize = new Size(963, 340);
             Controls.Add(lblTitulo);
             Controls.Add(btnSalir);
             Controls.Add(lstLog);
